@@ -18,7 +18,22 @@ to the latest forecast, even without an internet connection.
 |-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-------------------------------------------------|
 | ![Screenshot 6](images/screenshot/page-6.jpg) | ![Screenshot 7](images/screenshot/page-7.jpg) | ![Screenshot 8](images/screenshot/page-8.jpg) | ![Screenshot 9](images/screenshot/page-9.jpg) | ![Screenshot 10](images/screenshot/page-10.jpg) |
 
+| Reset Password Successful                      | Login Page Successful                          | Home Page Light Mode                           | Home Page Light Mode                           | Home Page Dark Mode                             |
+|------------------------------------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|-------------------------------------------------|
+| ![Screenshot 6](images/screenshot/page-11.jpg) | ![Screenshot 7](images/screenshot/page-12.jpg) | ![Screenshot 8](images/screenshot/page-13.jpg) | ![Screenshot 9](images/screenshot/page-14.jpg) | ![Screenshot 10](images/screenshot/page-15.jpg) |
 
+| Create Habit Light Mode                        | Create Habit Dark Mode                         | Bottom Action Light Mode                       | Bottom Action Dark Mode                        | Bottom Action Light Mode                        |
+|------------------------------------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|-------------------------------------------------|
+| ![Screenshot 6](images/screenshot/page-16.jpg) | ![Screenshot 7](images/screenshot/page-17.jpg) | ![Screenshot 8](images/screenshot/page-18.jpg) | ![Screenshot 9](images/screenshot/page-19.jpg) | ![Screenshot 10](images/screenshot/page-20.jpg) |
+
+
+| Bottom Action Dark Mode                        | Notification Light Mode                        | Notification Dark Mode                         | Statistics Light Mode                          | Statistics Dark Mode                            |
+|------------------------------------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|-------------------------------------------------|
+| ![Screenshot 6](images/screenshot/page-21.jpg) | ![Screenshot 7](images/screenshot/page-22.jpg) | ![Screenshot 8](images/screenshot/page-23.jpg) | ![Screenshot 9](images/screenshot/page-24.jpg) | ![Screenshot 10](images/screenshot/page-25.jpg) |
+
+| Profile Page Light Mode                        | Profile Page Dark Mode                         | Edit Profile                                   | Edit Profile                                   | Local Notification                              |
+|------------------------------------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|-------------------------------------------------|
+| ![Screenshot 6](images/screenshot/page-26.jpg) | ![Screenshot 7](images/screenshot/page-27.jpg) | ![Screenshot 8](images/screenshot/page-28.jpg) | ![Screenshot 9](images/screenshot/page-29.jpg) | ![Screenshot 10](images/screenshot/page-30.jpg) |
 
 ## Key Features
 

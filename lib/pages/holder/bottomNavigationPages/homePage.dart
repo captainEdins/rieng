@@ -392,8 +392,8 @@ class _HomePageState extends State<HomePage> {
               InkWell(
                 onTap: () async {
                   Get.back();
-                  // await Get.to(() => TestPageAdd(taskNew: task, isEditable: true,));
-                  // refreshItems();
+                  await Get.to(() => CreateHabit(taskNew: task, isEditable: true,));
+                  refreshItems();
                 },
                 child: Container(
                     padding: const EdgeInsets.all(10),
