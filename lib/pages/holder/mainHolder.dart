@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:rieng/pages/holder/bottomNavigationPages/homePage.dart';
+import 'package:rieng/pages/holder/bottomNavigationPages/profilePage.dart';
 import 'package:rieng/pages/holder/bottomNavigationPages/statisticsPage.dart';
 import 'package:rieng/resources/color.dart';
 
@@ -91,7 +92,7 @@ class _MainHolderState extends State<MainHolder> {
     return [
       HomePage(),
       StatisticsPage(),
-       containerHere("settings"),
+      ProfilePage(),
     ];
   }
 

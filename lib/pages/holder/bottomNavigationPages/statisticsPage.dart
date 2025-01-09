@@ -139,7 +139,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                     // },
                   ),
                   SizedBox(
-                    height: 100,
+                    height: 200,
                   ),
                 ],
               ),
