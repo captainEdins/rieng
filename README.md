@@ -1,11 +1,8 @@
 # 🔖RIENG
 
-### Njeve, meaning "cold" in Kenyan slang, is your go-to app for staying informed about the weather.
+### Rieng, meaning "Formation" in Kenyan slang, is Empowering Kenyans to Form a Better Future Through Sustainable Habit Formation.
 
-This app provides real-time weather updates, keeping you prepared for whatever
-Mother Nature throws your way. Plus, Njeve's handy offline features ensure you have access
-to the latest forecast, even without an internet connection.
-
+RIENG is a comprehensive mobile application designed to empower Kenyans to cultivate positive habits and achieve their personal and professional goals. Recognizing the pivotal role of consistent action in personal growth, RIENG provides a user-friendly platform for individuals to track a wide range of habits, from daily routines like exercise and mindfulness to long-term aspirations such as learning a new language or starting a business.
 ## Project Screenshots
 
 **Here's a glimpse of what this project offers:**
@@ -35,59 +32,52 @@ to the latest forecast, even without an internet connection.
 |------------------------------------------------|------------------------------------------------|------------------------------------------------|------------------------------------------------|-------------------------------------------------|
 | ![Screenshot 6](images/screenshot/page-26.jpg) | ![Screenshot 7](images/screenshot/page-27.jpg) | ![Screenshot 8](images/screenshot/page-28.jpg) | ![Screenshot 9](images/screenshot/page-29.jpg) | ![Screenshot 10](images/screenshot/page-30.jpg) |
 
-## Key Features
 
-To improve the user experience and reduce data usage, the app implements the following features:
 
-- **Offline data caching:** Weather data is cached for 5 hours after it's retrieved,
-  allowing users to interact with the app even without an internet connection.
-  This saves users data by displaying the most recent data available.
-- **Refresh option:** Users can manually refresh the data by clicking the arrow next
-  to their address, ensuring they have the latest information whenever they need it.
-- **Limited Hourly Forecast:** Only displays upcoming hours for the weather forecast.
 
-### Benefits:
 
-- **Reduced data consumption:** By caching data, users can avoid unnecessary data downloads,
-  especially beneficial for those with limited data plans.
-- **Improved user experience:** Offline data access allows users to view weather information
-  even when offline.
-- **Cost savings:** Reduced API calls lead to lower subscription costs for the app.
-- **Reduced Scrolling:** Saves users time by focusing on relevant weather information for the coming hours.
-
-## Download Njeve
-- [Download From Google Drive](https://drive.google.com/file/d/1v7HPINARBm1BpcrURCD9UdW9H6RvFtwe/view?usp=sharing)
-- [Download From Diawi](https://i.diawi.com/vqGzg3)
-
-## Weather Api
-Weather data is retrieved from the **Visual Crossing Weather API**.
-- [Tap To View Nyeri Weather Forecast](https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/nyeri%2CK?unitGroup=us&key=TURRDRRQ9UP5GZZ79YTSG8PMF)
 
 ## Dependencies
 This app utilizes the following external libraries to provide various functionalities:
 
-- **shared_preferences:** Enables storing and retrieving persistent data on the device.
-- **smooth_page_indicator:** Provides a visual indicator for navigating through pages or items. (Version: ^1.0.0+2)
-- **permission_handler:** Manages runtime permissions required by the app on Android devices. (Version: ^8.3.0)
-- **geolocator:** Facilitates accessing the device's location information. (Version: ^8.0.1)
-- **intl:** Offers internationalization and localization support for handling different languages and formats. (Version: ^0.17.0)
-- **lottie:** Enables displaying animated Lottie animations within the app. (Version: ^1.2.1)
-- **geocoding:** Assists with converting addresses or locations into geographical coordinates. (Version: ^3.0.0)
-- **http:** Provides a client for making HTTP requests to web servers. (Version: ^0.13.5)
-- **loading_animation_widget:** (Optional) Likely a custom package for handling loading animations within the app. (Version: ^1.2.0+2)
-# rieng
+### UI/UX
 
-A new Flutter project.
+- **cupertino_icons:** Provides access to Apple-designed icons for use in Cupertino-style widgets.
+- **smooth_page_indicator:** Creates smooth and visually appealing indicators for paginated content (e.g., sliders, view pagers).
+- **flutter_custom_clippers:** Offers a collection of pre-made and customizable clippers to create unique shapes for your UI elements.
 
-## Getting Started
+### State Management & Data Handling
 
-This project is a starting point for a Flutter application.
+- **get_storage:** A simple and efficient key-value storage solution for persisting data locally.
+- **get:** A powerful state management solution for building complex Flutter applications.
+- **intl:** Provides internationalization and localization support for your app (e.g., handling different languages, date/time formats).
 
-A few resources to get you started if this is your first Flutter project:
+### Date & Time
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **date_picker_timeline:** Allows users to select dates from a timeline view.
+- **flutter_datetime_picker:** Provides a customizable date and time picker widget.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Database & Storage
+
+- **sqflite:** A plugin for interacting with SQLite databases on various platforms.
+- **cloud_firestore:** A cloud-based NoSQL database provided by Firebase.
+- **firebase_core:** The core Firebase plugin, required for using other Firebase services.
+- **firebase_auth:** Handles user authentication within your Firebase project.
+- **firebase_storage:** Allows you to upload and download files to Firebase Cloud Storage.
+
+### Animations & Effects
+
+- **flutter_staggered_animations:** Creates staggered animations for a more visually appealing and engaging user experience.
+- **loading_animation_widget:** Provides a variety of pre-built loading animations for user feedback.
+
+### Notifications & Background Tasks
+
+- **flutter_local_notifications:** Enables the display of local notifications within your app.
+
+### Other
+
+- **persistent_bottom_nav_bar:** Creates a persistent bottom navigation bar for easy navigation within your app.
+- **flutter_heatmap_calendar:** Displays a heatmap calendar to visualize data over time.
+
+
+**RIENG** aims to empower Kenyans to live healthier, more fulfilling lives by making habit formation simple, enjoyable, and sustainable.
