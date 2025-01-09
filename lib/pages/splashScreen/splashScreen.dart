@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:rieng/pages/holder/mainHolder.dart';
 import 'package:rieng/pages/landingPage/landingPage.dart';
 import 'package:rieng/resources/color.dart';
 import 'package:rieng/resources/string.dart';
@@ -13,6 +15,9 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
+
+  final box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
 
@@ -73,15 +78,14 @@ class _SplashscreenState extends State<Splashscreen> {
   }
 
   void openMe() async {
-    // final prefs = await SharedPreferences.getInstance();
-    // final getIn = prefs.getBool('first') ?? false;
 
-    openHome();
+    final getLoginStatus =  box.read('login') ?? "";
+    openHome(homePage: getLoginStatus == "in");
   }
 
-  void openHome({bool landingPage = false}) {
-    if (landingPage) {
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const HomePage()));
+  void openHome({bool homePage = false}) {
+    if (homePage) {
+     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const MainHolder()));
     }else {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LandingPage()));
     }

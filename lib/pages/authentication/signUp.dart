@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rieng/connection/authentication.dart';
+import 'package:rieng/dialog/dialogGood.dart';
+import 'package:rieng/dialog/dialogLoadWait.dart';
 import 'package:rieng/resources/color.dart';
 
 class SignUp extends StatefulWidget {
@@ -352,7 +355,13 @@ class _SignUpState extends State<SignUp> {
   Widget buttonRegister() {
     return InkWell(
       onTap: () {
-
+        if(getEmail.text.isEmpty || getPassword.text.isEmpty
+            || getName.text.isEmpty || getPhone.text.isEmpty){
+          Get.snackbar("Required", "All fields are required",
+              icon: Icon(Icons.warning_amber_rounded));
+        }else{
+          createUser();
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -412,6 +421,97 @@ class _SignUpState extends State<SignUp> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> createUser() async {
+    showAlertDialog(context);
+
+    //check if the email exist
+
+
+    final message =   await AuthenticationService().registration(
+      email: getEmail.text.toString().trim(),
+      password: getPassword.text.toString().trim(),
+      name: getName.text.toString().trim(),
+      phone: getPhone.text.toString().trim(),
+    );
+
+
+
+
+    Get.back();
+    var messageNext = message;
+    if (message!.contains('Success')) {
+      //open her the splashscreen
+      takeMessage = 'Success!';
+      messageNext = "account was set up successfully";
+    } else {
+      takeMessage = 'Error!';
+    }
+
+
+
+
+    showAlertDialogGood(messageNext!,buttonOk(),takeMessage);
+    //then load the user to the database
+  }
+
+  showAlertDialog(BuildContext contexts) async {
+    showDialog(
+      context: contexts,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return DialogLoadWait();
+      },
+
+    );
+  }
+
+  var takeMessage = '';
+  Widget buttonOk() {
+    return Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: () async {
+              Get.back();
+
+              if (takeMessage == 'Success!') {
+                //open her the splashscreen
+                Get.back();
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: takeMessage == 'Success!' ? ColorList.green : ColorList.red,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Text(
+                'ok',
+                style: TextStyle(
+                  color: ColorList.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  showAlertDialogGood(String message, Widget buttonOk,String title) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return DialogGood(message: message, title: title,buttons: buttonOk,);
+      },
     );
   }
 

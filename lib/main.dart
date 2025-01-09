@@ -1,8 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:rieng/pages/holder/mainHolder.dart';
+import 'package:rieng/firebase_options.dart';
 import 'package:rieng/pages/splashScreen/splashScreen.dart';
 import 'package:rieng/service/themeService.dart';
 import 'package:rieng/util/theme.dart';
@@ -19,6 +20,10 @@ Future<void> main() async {
   tz.initializeTimeZones();
   await GetStorage.init();
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -30,8 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: const Splashscreen(),
-      home: const MainHolder(),
+      home: const Splashscreen(),
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: ThemeService().theme,

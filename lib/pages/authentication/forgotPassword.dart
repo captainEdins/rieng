@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rieng/connection/authentication.dart';
+import 'package:rieng/dialog/dialogGood.dart';
+import 'package:rieng/dialog/dialogLoadWait.dart';
 import 'package:rieng/resources/color.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -162,7 +165,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget buttonReset() {
     return InkWell(
       onTap: () {
-
+        if(getEmail.text.isEmpty){
+          Get.snackbar("Required", "All fields are required",
+              icon: Icon(Icons.warning_amber_rounded));
+        }else{
+          resetUser();
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -224,5 +232,92 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
     );
   }
+
+  Future<void> resetUser() async {
+    showAlertDialog(context);
+
+    //check if the email exist
+
+
+    final message =   await AuthenticationService().reset(
+        email: getEmail.text.toString().trim()
+    );
+
+
+    Navigator.of(context, rootNavigator: true).pop();
+    var messageNext = message;
+    if (message!.contains('successfully')) {
+      //open her the splashscreen
+      takeMessage = 'Success!';
+      messageNext = "account was set up successfully";
+    } else {
+      takeMessage = 'Error!';
+    }
+
+
+
+
+    showAlertDialogGood(messageNext!,buttonOk(),takeMessage);
+    //then load the user to the database
+  }
+
+  showAlertDialog(BuildContext contexts) async {
+    showDialog(
+      context: contexts,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return DialogLoadWait();
+      },
+
+    );
+  }
+
+  var takeMessage = '';
+  Widget buttonOk() {
+    return Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: () async {
+              Navigator.pop(context);
+
+              if (takeMessage == 'Success!') {
+                //open her the splashscreen
+                Navigator.pop(context);
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: takeMessage == 'Success!' ? ColorList.green : ColorList.red,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Text(
+                'ok',
+                style: TextStyle(
+                  color: ColorList.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  showAlertDialogGood(String message, Widget buttonOk,String title) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return DialogGood(message: message, title: title,buttons: buttonOk,);
+      },
+    );
+  }
+
 
 }

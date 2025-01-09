@@ -3,6 +3,7 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rieng/controller/taskController.dart';
+import 'package:rieng/pages/holder/bottomNavigationPages/commonPage/notificationPage.dart';
 import 'package:rieng/resources/color.dart';
 import 'package:rieng/resources/string.dart';
 
@@ -184,7 +185,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => NotificationPage());
+                },
                 child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(

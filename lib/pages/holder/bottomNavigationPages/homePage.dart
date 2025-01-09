@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:rieng/controller/taskController.dart';
 import 'package:rieng/model/taskNew.dart';
+import 'package:rieng/pages/holder/bottomNavigationPages/commonPage/notificationPage.dart';
 import 'package:rieng/pages/holder/bottomNavigationPages/home/createHabit.dart';
 import 'package:rieng/pages/holder/bottomNavigationPages/widgets/habitTile.dart';
 import 'package:rieng/resources/color.dart';
@@ -19,11 +21,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   var name = "John Kimathi";
   var daySelected = "Today";
   DateTime _selectedDate = DateTime.now();
   final _taskController = Get.put(TaskController());
+
+  @override
+  void initState() {
+    setData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget appBarItems() {
-    return  Container(
+    return Container(
       margin: EdgeInsets.only(
           top: MediaQuery.of(context).viewPadding.top > 0 ? 35 : 5,
           left: 10,
@@ -58,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-           Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -67,7 +74,8 @@ class _HomePageState extends State<HomePage> {
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontWeight: FontWeight.w800,
-                      color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                      color:
+                          Get.isDarkMode ? ColorList.white : ColorList.appBlack,
                       fontSize: 24),
                 ),
                 Row(
@@ -77,7 +85,9 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontWeight: FontWeight.w800,
-                          color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                          color: Get.isDarkMode
+                              ? ColorList.white
+                              : ColorList.appBlack,
                           fontSize: 24),
                     ),
                     Text(
@@ -94,12 +104,15 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
+              Get.to(() => NotificationPage());
             },
             child: Container(
                 padding: const EdgeInsets.all(10),
-                decoration:  BoxDecoration(
-                  color: Get.isDarkMode ? ColorList.iconBackground : ColorList.appBlack.withOpacity(.1),
+                decoration: BoxDecoration(
+                  color: Get.isDarkMode
+                      ? ColorList.iconBackground
+                      : ColorList.appBlack.withOpacity(.1),
                   borderRadius: BorderRadius.all(Radius.circular(100)),
                 ),
                 child: Icon(
@@ -113,9 +126,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-  Widget toolBarItems(){
-
+  Widget toolBarItems() {
     var timeNow = DateTime.now().hour;
 
     var greetings = "";
@@ -143,7 +154,8 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 9,
                     fontWeight: FontWeight.w600,
-                    color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                    color:
+                        Get.isDarkMode ? ColorList.white : ColorList.appBlack,
                   ),
                   textAlign: TextAlign.left,
                 ),
@@ -188,7 +200,7 @@ class _HomePageState extends State<HomePage> {
               color: Get.isDarkMode ? ColorList.appBlack : ColorList.white,
               size: 16,
             ),
-             Text(
+            Text(
               'Add Task',
               style: TextStyle(
                 color: Get.isDarkMode ? ColorList.appBlack : ColorList.white,
@@ -202,19 +214,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget scrollDateHolder(){
+  Widget scrollDateHolder() {
     return Container(
-      margin: EdgeInsets.only(
-        top: 10,
-        left: 10
-      ),
+      margin: EdgeInsets.only(top: 10, left: 10),
       child: DatePicker(
         DateTime.now(),
         width: 60,
         height: 90,
         initialSelectedDate: DateTime.now(),
         selectionColor: ColorList.appGreen,
-        selectedTextColor: Get.isDarkMode ? ColorList.appBlack : ColorList.white,
+        selectedTextColor:
+            Get.isDarkMode ? ColorList.appBlack : ColorList.white,
         dateTextStyle: TextStyle(color: Colors.grey, fontSize: 24),
         dayTextStyle: TextStyle(color: Colors.grey, fontSize: 11),
         monthTextStyle: TextStyle(color: Colors.grey, fontSize: 11),
@@ -224,14 +234,13 @@ class _HomePageState extends State<HomePage> {
 
             int dayDifference = _daysBetween(DateTime.now(), date);
 
-            if(dayDifference == 0){
+            if (dayDifference == 0) {
               daySelected = "Today";
-            }else if(dayDifference == 1){
+            } else if (dayDifference == 1) {
               daySelected = "Tomorrow";
-            }else{
+            } else {
               daySelected = DateFormat.yMd().format(date);
             }
-
           });
         },
       ),
@@ -245,8 +254,7 @@ class _HomePageState extends State<HomePage> {
     return toOnlyDate.difference(fromOnlyDate).inDays;
   }
 
-  Widget stateHabitDay(){
-
+  Widget stateHabitDay() {
     return Row(
       children: [
         Text(
@@ -270,7 +278,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _showTaskAdded() {
-
     return Expanded(child: Obx(() {
       return ListView.builder(
           padding: EdgeInsets.only(left: 10, right: 10),
@@ -278,37 +285,39 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (_, index) {
             var itemHolder = _taskController.taskListNew[index];
             var getDateStore = stringToDate(dateString: itemHolder.date!);
-            final differenceInDays = _selectedDate.difference(getDateStore).inDays;
+            final differenceInDays =
+                _selectedDate.difference(getDateStore).inDays;
             bool isWeekly = differenceInDays % 7 == 0;
 
-
-
-            if(itemHolder.repeat == "Daily" || itemHolder.date == DateFormat.yMd().format(_selectedDate) ){
+            if (itemHolder.repeat == "Daily" ||
+                itemHolder.date == DateFormat.yMd().format(_selectedDate)) {
               return taskTileHolder(index: index, itemHolder: itemHolder);
-            }else if(itemHolder.repeat == "Monthly" && itemHolder.date!.split("/")[1] == DateFormat.yMd().format(_selectedDate).split("/")[1]){
+            } else if (itemHolder.repeat == "Monthly" &&
+                itemHolder.date!.split("/")[1] ==
+                    DateFormat.yMd().format(_selectedDate).split("/")[1]) {
               return taskTileHolder(index: index, itemHolder: itemHolder);
-            }else if(itemHolder.repeat == "Weekly" && isWeekly){
+            } else if (itemHolder.repeat == "Weekly" && isWeekly) {
               return taskTileHolder(index: index, itemHolder: itemHolder);
-            }else{
+            } else {
               return SizedBox();
             }
-
           });
     }));
   }
 
-  Widget taskTileHolder({required int index, required TaskNew itemHolder}){
-
+  Widget taskTileHolder({required int index, required TaskNew itemHolder}) {
     return AnimationConfiguration.staggeredList(
       position: index,
       child: SlideAnimation(
         child: FadeInAnimation(
           child: InkWell(
               onTap: () {
-                _showBottomLayout(
-                    task: itemHolder);
+                _showBottomLayout(task: itemHolder);
               },
-              child: HabitTile(task: itemHolder, selectedDate: _selectedDate,)),
+              child: HabitTile(
+                task: itemHolder,
+                selectedDate: _selectedDate,
+              )),
         ),
       ),
     );
@@ -319,7 +328,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   _showBottomLayout({required TaskNew task}) {
-
     double screenSize = MediaQuery.of(context).size.height;
 
     Get.bottomSheet(Container(
@@ -330,7 +338,10 @@ class _HomePageState extends State<HomePage> {
       ),
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-      height: !task.dailyInputDates!.contains(DateFormat.yMd().format(_selectedDate).toString()) ? screenSize * 0.32 : screenSize * 0.24,
+      height: !task.dailyInputDates!
+              .contains(DateFormat.yMd().format(_selectedDate).toString())
+          ? screenSize * 0.32
+          : screenSize * 0.24,
       child: Column(
         children: [
           Container(
@@ -360,7 +371,9 @@ class _HomePageState extends State<HomePage> {
                       child: Icon(
                         CupertinoIcons.arrow_turn_left_down,
                         size: 24,
-                        color: Get.isDarkMode ? ColorList.white : ColorList.darkGreyClr,
+                        color: Get.isDarkMode
+                            ? ColorList.white
+                            : ColorList.darkGreyClr,
                       ),
                     )),
               ),
@@ -396,15 +409,20 @@ class _HomePageState extends State<HomePage> {
                       child: Icon(
                         CupertinoIcons.pen,
                         size: 24,
-                        color: Get.isDarkMode ? ColorList.white : ColorList.darkGreyClr,
+                        color: Get.isDarkMode
+                            ? ColorList.white
+                            : ColorList.darkGreyClr,
                       ),
                     )),
               ),
             ],
           ),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           Visibility(
-            visible: !task.dailyInputDates!.contains(DateFormat.yMd().format(_selectedDate).toString()),
+            visible: !task.dailyInputDates!
+                .contains(DateFormat.yMd().format(_selectedDate).toString()),
             child: Row(
               children: [
                 Expanded(
@@ -412,32 +430,31 @@ class _HomePageState extends State<HomePage> {
                       label: "Skip Task",
                       colorButton: ColorList.yellowClr,
                       tapInput: () async {
-
-                        await _taskController.addTaskProgress(
-                            task: {
-                              "idTask": task.id,
-                              "dailyInputType": 0,
-                              "dailyInputDate": DateFormat.yMd().format(_selectedDate).toString()
-                            }
-                        );
+                        await _taskController.addTaskProgress(task: {
+                          "idTask": task.id,
+                          "dailyInputType": 0,
+                          "dailyInputDate":
+                              DateFormat.yMd().format(_selectedDate).toString()
+                        });
 
                         refreshItems();
                         Get.back();
                       }),
                 ),
-                SizedBox(width: 10,),
+                SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   child: buttonActions(
                       label: "Complete Task",
                       colorButton: ColorList.appGreen,
                       tapInput: () async {
-                        await _taskController.addTaskProgress(
-                            task: {
-                              "idTask": task.id,
-                              "dailyInputType": 1,
-                              "dailyInputDate": DateFormat.yMd().format(_selectedDate).toString()
-                            }
-                        );
+                        await _taskController.addTaskProgress(task: {
+                          "idTask": task.id,
+                          "dailyInputType": 1,
+                          "dailyInputDate":
+                              DateFormat.yMd().format(_selectedDate).toString()
+                        });
                         refreshItems();
                         Get.back();
                       }),
@@ -493,4 +510,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  final box = GetStorage();
+
+  setData() {
+    final getName = box.read('name') ?? "";
+
+    setState(() {
+      name = getName;
+    });
+  }
 }

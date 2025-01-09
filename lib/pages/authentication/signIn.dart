@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:get/get.dart';
+import 'package:rieng/connection/authentication.dart';
+import 'package:rieng/dialog/dialogGood.dart';
+import 'package:rieng/dialog/dialogLoadWait.dart';
 import 'package:rieng/pages/authentication/forgotPassword.dart';
 import 'package:rieng/pages/authentication/signUp.dart';
+import 'package:rieng/pages/splashScreen/splashScreen.dart';
 import 'dart:math' as math;
 
 import 'package:rieng/resources/color.dart';
@@ -288,8 +293,15 @@ class _SignInState extends State<SignIn> {
   Widget buttonLogin() {
     return InkWell(
       onTap: () {
+        if (getEmail.text.isEmpty ||
+            getPassword.text.isEmpty) {
 
+          Get.snackbar("Required", "All fields are required",
+              icon: Icon(Icons.warning_amber_rounded));
+        } else {
+          checkUser();
 
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -395,5 +407,93 @@ class _SignInState extends State<SignIn> {
       ],
     );
   }
+
+  Future<void> checkUser() async {
+    showAlertDialog(context);
+
+    //check if the email exist
+    final message = await AuthenticationService()
+        .login(email: getEmail.text.toString().trim(), password: getPassword.text.toString().trim());
+
+
+
+    Navigator.of(context, rootNavigator: true).pop();
+    var textMessage = message;
+    if (message!.contains('welcome')) {
+      //open her the splashscreen
+      takeMessage = 'Success!';
+      textMessage = 'Welcome';
+    } else {
+      takeMessage = 'Error!';
+    }
+
+
+
+
+    showAlertDialogGood(textMessage!,buttonOk(),takeMessage);
+
+    //then load the user to the database
+  }
+
+  var takeMessage = '';
+  Widget buttonOk() {
+    return Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: () async {
+
+              Navigator.pop(context);
+
+              if (takeMessage == 'Success!') {
+                //open her the splashscreen
+                pushReplacement(
+                    classReplace:  Splashscreen());
+
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: takeMessage == 'Success!' ? ColorList.green : ColorList.red,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Text(
+                'ok',
+                style: TextStyle(
+                  color: ColorList.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  showAlertDialogGood(String message, Widget buttonOk,String title) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return DialogGood(message: message, title: title,buttons: buttonOk,);
+      },
+    );
+  }
+
+  showAlertDialog(BuildContext contexts) async {
+    showDialog(
+      context: contexts,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return DialogLoadWait();
+      },
+    );
+  }
+
 
 }

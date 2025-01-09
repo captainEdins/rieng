@@ -13,6 +13,7 @@ import 'package:rieng/service/notificationService.dart';
 class CreateHabit extends StatefulWidget {
   final bool isEditable;
   TaskNew? taskNew;
+
   CreateHabit({super.key, this.isEditable = false, this.taskNew});
 
   @override
@@ -20,8 +21,6 @@ class CreateHabit extends StatefulWidget {
 }
 
 class _CreateHabitState extends State<CreateHabit> {
-
-
   final TaskController _taskController = Get.put(TaskController());
 
   TextEditingController getTitle = TextEditingController();
@@ -114,13 +113,16 @@ class _CreateHabitState extends State<CreateHabit> {
                     tapWidget: DropdownButton(
                       icon: Icon(
                         Icons.arrow_drop_down_rounded,
-                        color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                        color: Get.isDarkMode
+                            ? ColorList.white
+                            : ColorList.appBlack,
                       ),
                       iconSize: 32,
                       underline: SizedBox(
                         height: 0,
                       ),
-                      items: reminderList.map<DropdownMenuItem<String>>((int value) {
+                      items: reminderList
+                          .map<DropdownMenuItem<String>>((int value) {
                         return DropdownMenuItem<String>(
                           value: value.toString(),
                           child: Text(value.toString()),
@@ -143,13 +145,16 @@ class _CreateHabitState extends State<CreateHabit> {
                     tapWidget: DropdownButton(
                       icon: Icon(
                         Icons.arrow_drop_down_rounded,
-                        color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                        color: Get.isDarkMode
+                            ? ColorList.white
+                            : ColorList.appBlack,
                       ),
                       iconSize: 32,
                       underline: SizedBox(
                         height: 0,
                       ),
-                      items: repeatList.map<DropdownMenuItem<String>>((String value) {
+                      items: repeatList
+                          .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -193,14 +198,14 @@ class _CreateHabitState extends State<CreateHabit> {
                                       backgroundColor: index == 0
                                           ? ColorList.appGreenOne
                                           : index == 1
-                                          ? ColorList.appGreen
-                                          : ColorList.yellowClr,
+                                              ? ColorList.appGreen
+                                              : ColorList.yellowClr,
                                       child: selectedColor == index
                                           ? Icon(
-                                        Icons.done,
-                                        color: ColorList.white,
-                                        size: 16,
-                                      )
+                                              Icons.done,
+                                              color: ColorList.white,
+                                              size: 16,
+                                            )
                                           : null,
                                     ),
                                   ),
@@ -222,21 +227,26 @@ class _CreateHabitState extends State<CreateHabit> {
     );
   }
 
-  Widget appBarItems(){
-    return  Row(
+  Widget appBarItems() {
+    return Row(
       children: [
         InkWell(
           onTap: () {
             Get.back();
           },
           child: Container(
-            margin: const EdgeInsets.only(right: 5),
-            child:  Icon(
-              CupertinoIcons.arrow_left_circle_fill,
-              color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
-              size: 40,
-            ),
-          ),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Get.isDarkMode
+                    ? ColorList.iconBackground
+                    : ColorList.appBlack.withOpacity(.1),
+                borderRadius: const BorderRadius.all(Radius.circular(100)),
+              ),
+              child: Icon(
+                CupertinoIcons.arrow_left,
+                color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                size: 23,
+              )),
         ),
         Row(
           children: [
@@ -264,12 +274,12 @@ class _CreateHabitState extends State<CreateHabit> {
 
   Widget textInput(
       {required TextEditingController controllerText,
-        required String hintText,
-        required IconData iconData,
-        Widget? tapWidget,
-        bool readOnly = false,
-        bool comboBox = false,
-        Function()? tapInput}) {
+      required String hintText,
+      required IconData iconData,
+      Widget? tapWidget,
+      bool readOnly = false,
+      bool comboBox = false,
+      Function()? tapInput}) {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: SizedBox(
@@ -281,7 +291,7 @@ class _CreateHabitState extends State<CreateHabit> {
               readOnly: readOnly,
               keyboardType: TextInputType.text,
               cursorColor:
-              Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                  Get.isDarkMode ? ColorList.white : ColorList.appBlack,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 color: Get.isDarkMode ? ColorList.white : ColorList.appBlack,
@@ -316,7 +326,7 @@ class _CreateHabitState extends State<CreateHabit> {
                 ),
                 hintStyle: TextStyle(
                     color:
-                    Get.isDarkMode ? ColorList.white : ColorList.appBlack,
+                        Get.isDarkMode ? ColorList.white : ColorList.appBlack,
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
                 focusedBorder: OutlineInputBorder(
@@ -406,10 +416,9 @@ class _CreateHabitState extends State<CreateHabit> {
         getDate.text.isNotEmpty &&
         getStartTime.text.isNotEmpty &&
         getEndTime.text.isNotEmpty) {
-
-      if(!widget.isEditable){
+      if (!widget.isEditable) {
         _addTaskToDB();
-      }else{
+      } else {
         _updateTaskToDB();
       }
       Get.back();
@@ -437,7 +446,7 @@ class _CreateHabitState extends State<CreateHabit> {
     DateTime dateTime = DateFormat("MM/dd/yyyy hh:mm a").parse(dateString);
 
     DateTime scheduleTime =
-    dateTime.subtract(Duration(minutes: _selectedReminder));
+        dateTime.subtract(Duration(minutes: _selectedReminder));
 
     if (scheduleTime.isAfter(DateTime.now())) {
       NotificationService().scheduleNotification(
@@ -455,6 +464,7 @@ class _CreateHabitState extends State<CreateHabit> {
           scheduledNotificationDateTime: dateTime);
     }
   }
+
   _updateTaskToDB() async {
     await _taskController.updateHabit(
         task: Task(
@@ -474,7 +484,7 @@ class _CreateHabitState extends State<CreateHabit> {
     DateTime dateTime = DateFormat("MM/dd/yyyy hh:mm a").parse(dateString);
 
     DateTime scheduleTime =
-    dateTime.subtract(Duration(minutes: _selectedReminder));
+        dateTime.subtract(Duration(minutes: _selectedReminder));
 
     if (scheduleTime.isAfter(DateTime.now())) {
       NotificationService().scheduleNotification(
@@ -508,8 +518,7 @@ class _CreateHabitState extends State<CreateHabit> {
   }
 
   void addStaticData() {
-
-    if(widget.isEditable) {
+    if (widget.isEditable) {
       setState(() {
         getTitle.text = widget.taskNew!.title!;
         getNote.text = widget.taskNew!.note!;
@@ -517,7 +526,7 @@ class _CreateHabitState extends State<CreateHabit> {
         getStartTime.text = widget.taskNew!.startTime!;
         getEndTime.text = widget.taskNew!.endTime!;
         getReminder.text =
-        "${widget.taskNew!.remind!.toString()} minutes early";
+            "${widget.taskNew!.remind!.toString()} minutes early";
         getRepeat.text = "Repeats ${widget.taskNew!.repeat!}";
 
         _selectedReminder = widget.taskNew!.remind!;
@@ -528,5 +537,4 @@ class _CreateHabitState extends State<CreateHabit> {
       });
     }
   }
-
 }

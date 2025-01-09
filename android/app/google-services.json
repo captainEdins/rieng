@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "899053633246",
+    "project_id": "rieng-76516",
+    "storage_bucket": "rieng-76516.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899053633246:android:ce033071fb074bef494c4f",
+        "android_client_info": {
+          "package_name": "com.gabina.rieng.rieng"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDGXXNMQjRmR4H65V13IsW4snbyJXH848"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

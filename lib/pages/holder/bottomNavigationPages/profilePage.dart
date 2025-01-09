@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rieng/resources/color.dart';
@@ -13,6 +14,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
 
   bool changeIcon = Get.isDarkMode;
+  String joined = "5 minutes ago";
+  String name = "John Kimathi";
+  String email = "john@gmail.com";
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +29,35 @@ class _ProfilePageState extends State<ProfilePage> {
             right: 10),
         child: Column(
           children: [
-            appBarItems()
+            appBarItems(),
+            SizedBox(height: 50,),
+            buttonLogout()
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buttonLogout() {
+    return InkWell(
+      onTap: () {
+
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        alignment: Alignment.center,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: ColorList.appGreen,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          'Sign Out',
+          style: TextStyle(
+            color: changeIcon ? ColorList.appBlack : ColorList.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );

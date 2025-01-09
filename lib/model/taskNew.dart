@@ -47,8 +47,8 @@ class TaskNew {
     // dailyInputDate = json['dailyInputDate'];
     // dailyInputType = json['dailyInputType'];
     // dailyInputId = json['dailyInputId'];
-    dailyInputDates = json['dailyInputDates'];
-    dailyInputTypes = json['dailyInputTypes'];
+    dailyInputDates = json['dailyInputDates'] ?? "";
+    dailyInputTypes = json['dailyInputTypes'] ?? "";
   }
 
   Map<String, dynamic> toJson(){
@@ -66,8 +66,8 @@ class TaskNew {
     // data['dailyInputDate'] = dailyInputDate;
     // data['dailyInputType'] = dailyInputType;
     // data['dailyInputId'] = dailyInputId;
-    data['dailyInputDates'] = dailyInputDates;
-    data['dailyInputTypes'] = dailyInputTypes;
+    data['dailyInputDates'] = dailyInputDates ?? "";
+    data['dailyInputTypes'] = dailyInputTypes ?? "";
     return data;
   }
 }
