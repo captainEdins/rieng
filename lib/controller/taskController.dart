@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rieng/database/databaseHelper.dart';
+import 'package:rieng/model/input.dart';
 import 'package:rieng/model/task.dart';
 import 'package:rieng/model/taskNew.dart';
 
@@ -11,11 +12,14 @@ class TaskController extends GetxController{
 
      getTask();
 
+     getSkippedCompleted();
+
     super.onReady();
   }
 
   var taskList = <Task>[].obs;
   var taskListNew = <TaskNew>[].obs;
+  var dailyInput = <Input>[].obs;
 
   Future<int> addTask({required Task ? task}) async {
     return await DatabaseHelper.insert(task);
@@ -28,6 +32,11 @@ class TaskController extends GetxController{
   void getTask() async{
     List<Map<String, dynamic>> task = await DatabaseHelper.query();
     taskListNew.assignAll(task.map((data) => TaskNew.fromJson(data)).toList());
+  }
+
+  void getSkippedCompleted() async{
+    List<Map<String, dynamic>> task = await DatabaseHelper.querySkippedCompleted();
+    dailyInput.assignAll(task.map((data) => Input.fromJson(data)).toList());
   }
 
   void deleteTask({required TaskNew ? task}){

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:rieng/pages/holder/bottomNavigationPages/homePage.dart';
+import 'package:rieng/pages/holder/bottomNavigationPages/statisticsPage.dart';
 import 'package:rieng/resources/color.dart';
 
 class MainHolder extends StatefulWidget {
@@ -88,8 +89,8 @@ class _MainHolderState extends State<MainHolder> {
 
   List<Widget> _buildScreensSpinner() {
     return [
-      const HomePage(),
-       containerHere("statics"),
+      HomePage(),
+      StatisticsPage(),
        containerHere("settings"),
     ];
   }

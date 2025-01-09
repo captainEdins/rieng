@@ -48,10 +48,6 @@ class DatabaseHelper {
 
   static Future<List<Map<String, dynamic>>> query() async {
     final database = await db();
-    // return await database.rawQuery('''
-    // SELECT * FROM ${_tableName[0]}
-    // ''');
-
     return await database.rawQuery('''
     SELECT t.*, GROUP_CONCAT(d.dailyInputDate, ',') AS dailyInputDates, GROUP_CONCAT(d.dailyInputType, ',') AS dailyInputTypes FROM ${_tableName[0]} t
     LEFT JOIN ${_tableName[1]} d ON
@@ -59,6 +55,11 @@ class DatabaseHelper {
     GROUP BY t.id
     ORDER BY t.id DESC
     ''');
+  }
+
+  static Future<List<Map<String, dynamic>>> querySkippedCompleted() async {
+    final database = await db();
+    return await database.query(_tableName[1]);
   }
 
   static delete({required TaskNew? task}) async {
@@ -78,7 +79,8 @@ class DatabaseHelper {
   static updateHabit({required Task task}) async {
     final database = await db();
     return await database.update(_tableName[0], task.toJson(),
-        where: 'id=?', whereArgs: [task.id],
+        where: 'id=?',
+        whereArgs: [task.id],
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 }

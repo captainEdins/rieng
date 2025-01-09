@@ -81,15 +81,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 24),
                     ),
                     Text(
-                      Strings.appName,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: ColorList.appGreen,
-                          fontSize: 24),
-                    ),
-                    Text(
-                      ".",
+                      "${Strings.appName}.",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontWeight: FontWeight.w900,
