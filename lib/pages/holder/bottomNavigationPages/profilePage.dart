@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:rieng/pages/splashScreen/splashScreen.dart';
 import 'package:rieng/resources/color.dart';
 import 'package:rieng/service/themeService.dart';
 
@@ -41,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buttonLogout() {
     return InkWell(
       onTap: () {
-
+        openSplashScreen();
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -125,5 +128,24 @@ class _ProfilePageState extends State<ProfilePage> {
         )
       ],
     );
+  }
+
+  final box = GetStorage();
+  Future<void> openSplashScreen() async {
+
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    try {
+      await auth.signOut();
+      //open her the splashscreen
+      box.erase();
+      ThemeService().switchThemeLight();
+      Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => const Splashscreen()));
+
+      print('User signed out successfully!');
+    } catch (e) {
+      print('Failed to sign out: $e');
+    }
   }
 }

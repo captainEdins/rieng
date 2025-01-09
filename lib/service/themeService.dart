@@ -17,4 +17,9 @@ class ThemeService{
     _saveThemeToBox(isDarkMode: !loadThemeFromBox());
   }
 
+  void switchThemeLight(){
+    Get.changeThemeMode(ThemeMode.light );
+    _saveThemeToBox(isDarkMode: false);
+  }
+
 }
